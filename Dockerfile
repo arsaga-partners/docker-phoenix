@@ -15,6 +15,7 @@ RUN set -x && \
   imagemagick \
   tar \
   ssh \
+  vim \
   gzip \
   g++ \
   ca-certificates \
