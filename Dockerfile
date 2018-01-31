@@ -17,6 +17,7 @@ RUN set -x && \
   ssh \
   gzip \
   g++ \
+  vim \
   ca-certificates \
   curl && \
   rm -rf /var/lib/apt/lists/* && \
