@@ -1,6 +1,8 @@
 FROM elixir:1.4.2-slim
 MAINTAINER homi
 
+ENV TZ Asia/Tokyo
+
 RUN set -x && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
@@ -25,6 +27,10 @@ RUN git clone -q https://github.com/ferd/erlang-history.git && \
     make install && \
     cd - && \
     rm -fR erlang-history
+
+#set timezone
+RUN echo "${TZ}" > /etc/timezone && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 # Add local node module binaries to PATH
 ENV PATH $PATH:node_modules/.bin:/opt/elixir-1.4.5/bin
