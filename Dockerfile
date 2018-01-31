@@ -12,6 +12,7 @@ RUN set -x && \
   inotify-tools \
   git \
   make \
+  vim \
   imagemagick \
   tar \
   ssh \
