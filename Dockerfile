@@ -17,6 +17,7 @@ RUN set -x && \
   ssh \
   vim \
   gzip \
+  cron \
   g++ \
   ca-certificates \
   curl && \
