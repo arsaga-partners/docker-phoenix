@@ -36,6 +36,9 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
 RUN echo "${TZ}" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata
 
+#install awscli
+RUN apt-get update && apt-get install -y python2.7-dev python-setuptools && easy_install pip && pip install awscli
+
 # Add erlang-history
 RUN git clone -q https://github.com/ferd/erlang-history.git && \
     cd erlang-history && \
