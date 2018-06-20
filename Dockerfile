@@ -44,4 +44,4 @@ RUN mix local.hex --force && \
 
 EXPOSE 4002
 
-CMD ["sh", "-c", "mix deps.get && mix phoenix.server"]
+CMD ["sh", "-c", "mix deps.get && elixir --sname vitalgear-node --cookie vitalgear -S mix phoenix.server"]
