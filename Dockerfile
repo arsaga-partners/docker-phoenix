@@ -25,6 +25,8 @@ RUN set -x && \
   ca-certificates \
   python2.7-dev \
   python-setuptools \
+  mono-devel \
+  sqlite3 \
   locales \
   curl && \
   rm -rf /var/lib/apt/lists/* && \
