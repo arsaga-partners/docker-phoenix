@@ -3,6 +3,10 @@ MAINTAINER homi
 
 ENV TZ Asia/Tokyo
 
+#install mono
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
+    echo "deb http://download.mono-project.com/repo/ubuntu trusty main" | tee /etc/apt/sources.list.d/mono-official.list
+
 RUN set -x && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
@@ -19,27 +23,24 @@ RUN set -x && \
   gzip \
   g++ \
   ca-certificates \
+  python2.7-dev \
+  python-setuptools \
+  locales \
   curl && \
   rm -rf /var/lib/apt/lists/* && \
   npm cache clean && \
   npm install n -g && \
   n stable && \
   ln -sf /usr/local/bin/node /usr/bin/node && \
-  apt-get purge -y nodejs npm
+  apt-get purge -y nodejs npm && \
+  easy_install pip && \
+  pip install awscli
 
 #install n
 RUN npm cache verify && npm install -g n
 
 #install node
 RUN n 7.6.0
-
-#install awscli
-RUN apt-get update && apt-get install -y python2.7-dev python-setuptools && easy_install pip && pip install awscli
-
-#install mono
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-    echo "deb http://download.mono-project.com/repo/ubuntu trusty main" | tee /etc/apt/sources.list.d/mono-official.list && \
-    apt-get update
 
 #set timezone
 RUN echo "${TZ}" > /etc/timezone && \
@@ -59,6 +60,12 @@ ENV PATH $PATH:node_modules/.bin:/opt/elixir-1.4.5/bin
 RUN mix local.hex --force && \
     mix local.rebar --force && \
     mix hex.info
+
+# Set Locale
+RUN locale-gen ja_JP.UTF-8
+ENV LANG ja_JP.UTF-8
+ENV LC_CTYPE ja_JP.UTF-8
+RUN localedef -f UTF-8 -i ja_JP ja_JP.utf8
 
 EXPOSE 4000
 
