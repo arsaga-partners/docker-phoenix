@@ -60,6 +60,15 @@ RUN mix local.hex --force && \
     mix local.rebar --force && \
     mix hex.info
 
+# Set Locale
+RUN set -x && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends locales
+RUN locale-gen ja_JP.UTF-8
+ENV LANG ja_JP.UTF-8
+ENV LC_CTYPE ja_JP.UTF-8
+RUN localedef -f UTF-8 -i ja_JP ja_JP.utf8
+
 EXPOSE 4000
 
 CMD ["sh", "-c", "mix deps.get && elixir --sname vitalgear-node --cookie vitalgear -S mix phoenix.server"]
