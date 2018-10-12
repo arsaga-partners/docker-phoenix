@@ -3,10 +3,6 @@ MAINTAINER homi
 
 ENV TZ Asia/Tokyo
 
-#install mono
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-    echo "deb http://download.mono-project.com/repo/ubuntu trusty main" | tee /etc/apt/sources.list.d/mono-official.list
-
 RUN set -x && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
@@ -25,9 +21,11 @@ RUN set -x && \
   ca-certificates \
   python2.7-dev \
   python-setuptools \
-  mono-devel \
   sqlite3 \
   locales \
+  sudo \
+  software-properties-common \
+  wget \
   curl && \
   rm -rf /var/lib/apt/lists/* && \
   npm cache clean && \
@@ -68,6 +66,11 @@ RUN locale-gen ja_JP.UTF-8
 ENV LANG ja_JP.UTF-8
 ENV LC_CTYPE ja_JP.UTF-8
 RUN localedef -f UTF-8 -i ja_JP ja_JP.utf8
+
+RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+RUN sudo echo "deb http://download.mono-project.com/repo/debian jessie main" | tee /etc/apt/sources.list.d/mono-official.list
+RUN sudo apt-get update
+RUN sudo apt-get install -y mono-devel
 
 EXPOSE 4000
 
