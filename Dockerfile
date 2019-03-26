@@ -3,11 +3,19 @@ LABEL maintainer="hattori045"
 
 ENV TZ Asia/Tokyo
 
+# RUN rm /etc/apt/sources.list
+RUN echo "deb http://deb.debian.org/debian stretch main" > /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian stable-updates main" >> /etc/apt/sources.list
+
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EF0F382A1A7B6500
 RUN set -x && \
   apt-get update && \
+  apt-get install -y \
+  curl && \
+  curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
   apt-get install -y --no-install-recommends \
   nodejs \
-  npm \
+  build-essential \
   mysql-client \
   inotify-tools \
   git \
@@ -18,10 +26,11 @@ RUN set -x && \
   gzip \
   g++ \
   vim \
-  ca-certificates \
-  curl && \
+  ca-certificates && \
+  apt-get install -y --no-install-recommends \
+  npm && \
   rm -rf /var/lib/apt/lists/* && \
-  npm cache clean && \
+  npm cache clean --force && \
   npm install n -g && \
   n stable && \
   ln -sf /usr/local/bin/node /usr/bin/node && \
