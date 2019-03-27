@@ -4,8 +4,7 @@ LABEL maintainer="hattori045"
 ENV TZ Asia/Tokyo
 
 # RUN rm /etc/apt/sources.list
-RUN echo "deb http://deb.debian.org/debian stretch main" > /etc/apt/sources.list && \
-    echo "deb http://deb.debian.org/debian stable-updates main" >> /etc/apt/sources.list
+RUN echo "deb http://deb.debian.org/debian stretch main" > /etc/apt/sources.list
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EF0F382A1A7B6500
 RUN set -x && \
