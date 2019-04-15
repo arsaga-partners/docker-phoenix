@@ -1,17 +1,13 @@
-FROM elixir:1.4.2-slim
+FROM elixir:1.8.1-slim
 LABEL maintainer="hattori045"
 
 ENV TZ Asia/Tokyo
 
-# RUN rm /etc/apt/sources.list
-RUN echo "deb http://deb.debian.org/debian stretch main" > /etc/apt/sources.list
-
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EF0F382A1A7B6500
 RUN set -x && \
   apt-get update && \
-  apt-get install -y \
+  apt-get install -y --no-install-recommends \
   curl && \
-  curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
+  curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
   apt-get install -y --no-install-recommends \
   nodejs \
   build-essential \
@@ -26,18 +22,13 @@ RUN set -x && \
   g++ \
   vim \
   ca-certificates && \
-  apt-get install -y --no-install-recommends \
-  npm && \
   rm -rf /var/lib/apt/lists/* && \
-  npm cache clean --force && \
-  npm install n -g && \
-  n stable && \
-  ln -sf /usr/local/bin/node /usr/bin/node && \
-  apt-get purge -y nodejs npm
-
-#install mono
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-    apt-get update
+  # npm cache clean --force && \
+  # npm install n -g && \
+  # n stable && \
+  ln -sf /usr/local/bin/node /usr/bin/node
+  # ln -sf /usr/local/bin/node /usr/bin/node && \
+  # apt-get purge -y nodejs npm
 
 #set timezone
 RUN echo "${TZ}" > /etc/timezone && \
@@ -54,7 +45,7 @@ RUN git clone -q https://github.com/ferd/erlang-history.git && \
     rm -fR erlang-history
 
 # Add local node module binaries to PATH
-ENV PATH $PATH:node_modules/.bin:/opt/elixir-1.4.5/bin
+ENV PATH $PATH:node_modules/.bin:/opt/elixir-1.8.1/bin
 
 # Install Hex+Rebar
 RUN mix local.hex --force && \
