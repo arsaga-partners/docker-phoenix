@@ -1,4 +1,4 @@
-FROM elixir:1.8.1-slim
+FROM elixir:1.7.4-slim
 LABEL maintainer="hattori045"
 
 ENV TZ Asia/Tokyo
@@ -36,7 +36,7 @@ RUN echo "${TZ}" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata
 
 # Add local node module binaries to PATH
-ENV PATH $PATH:node_modules/.bin:/opt/elixir-1.8.1/bin
+ENV PATH $PATH:node_modules/.bin:/opt/elixir-1.7.4/bin
 
 # Install Hex+Rebar
 RUN mix local.hex --force && \
