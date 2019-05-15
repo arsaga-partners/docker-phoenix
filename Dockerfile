@@ -1,4 +1,4 @@
-FROM elixir:1.7.4-slim
+FROM elixir:1.5.3-slim
 LABEL maintainer="hattori045"
 
 ENV TZ Asia/Tokyo
