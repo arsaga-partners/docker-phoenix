@@ -131,4 +131,4 @@ RUN sudo apt-get install -y mono-devel
 
 EXPOSE 4000
 
-CMD ["sh", "-c", "mix deps.get && elixir --sname vitalgear-node --cookie vitalgear -S mix phoenix.server"]
+CMD ["sh", "-c", "mix deps.get && elixir --sname vitalgear-node --cookie vitalgear -S mix phx.server"]
