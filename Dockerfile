@@ -36,7 +36,7 @@ RUN echo "${TZ}" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata
 
 # Add local node module binaries to PATH
-ENV PATH $PATH:node_modules/.bin:/opt/elixir-1.7.4/bin
+ENV PATH $PATH:node_modules/.bin:/opt/elixir-1.5.3/bin
 
 # Install Hex+Rebar
 RUN mix local.hex --force && \
