@@ -54,4 +54,4 @@ RUN mix local.hex --force && \
 
 EXPOSE 4000
 
-CMD ["sh", "-c", "mix deps.get && elixir --sname vitalgear-node --cookie vitalgear -S mix phx.server"]
+CMD ["sh", "-c", "mix deps.get && mix ecto.migrate && elixir --sname vitalgear-node --cookie vitalgear -S mix phx.server"]
